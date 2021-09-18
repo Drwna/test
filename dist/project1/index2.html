@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>canvas</title>
+        <link rel="stylesheet" href="style2.aa5ab116.css">
+    </head>
+
+    <body>
+        <canvas id="canvas" width="100px" height="100px"></canvas>
+        <script>
+            var canvas = document.getElementById("canvas");
+            // 获取文档宽度高度
+            canvas.width = document.documentElement.clientWidth;
+            canvas.height = document.documentElement.clientHeight;
+
+            var ctx = canvas.getContext("2d");
+            ctx.fillStyle = "black";
+            ctx.strokeStyle = "none";
+            // 线条粗细
+            ctx.lineWidth = 5;
+            // 线条之间的空隙为圆
+            ctx.lineCap = "round";
+            // 加大粗细调试
+            // drawLine(0, 0, 300, 300);
+            // drawLine(300, 300, 400, 200)
+
+            let painting = false;
+            let last
+
+            // 画线函数
+            function drawLine(x1, y1, x2, y2) {
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+            }       
+
+            // 检测是否支持触屏
+            var isTouchDevice = 'ontouchstart' in document.documentElement;
+            console.log(isTouchDevice);
+            if (isTouchDevice) {
+                canvas.ontouchstart = (e) => {
+                    let x = e.touches[0].clientX;
+                    let y = e.touches[0].clientY;
+                    last = [x, y];
+                }
+                canvas.ontouchmove = (e) => {
+                    let x = e.touches[0].clientX;
+                    let y = e.touches[0].clientY;
+                    drawLine(last[0], last[1], x, y);
+                    last = [x, y];
+
+                    // ctx.beginPath(); 
+                    // ctx.arc(x, y, 10, 0, 2 * Math.PI);
+                    // ctx.stroke();                    
+                    // ctx.fill(); // 填充圆形
+                }
+            } else {
+                canvas.onmousedown = (e) => {
+                    painting = true;
+                    last = [e.clientX, e.clientY];
+                    // console.log(last);
+                }
+
+                canvas.onmousemove = (e) => {
+                    if (painting === true) {
+                        // 画线
+                        drawLine(last[0], last[1], e.clientX, e.clientY);
+                        // 更新位置
+                        last = [e.clientX, e.clientY];
+
+                        // 画圆点，用一个个圆点练成一条线
+                        // ctx.beginPath();
+                        // ctx.arc(e.clientX, e.clientY, 10, 0, 2 * Math.PI);
+                        // ctx.stroke();
+                        // ctx.fill();  // 填充
+                    } else {
+                        console.log('do nothing');
+                    }
+                }
+
+                canvas.onmouseup = () => {
+                    painting = false;
+                }
+            }
+        </script>
+        <div id="canvas"></div>
+        <!-- <script>
+            // js操作DOM实现画点
+            canvas.onmousemove = (e) => {
+                console.log(e);
+                console.log(e.clientX);
+                console.log(e.clientY);
+                let div = document.createElement('div');
+                div.style.position = "absolute";
+                div.style.left = e.clientX + "px";
+                div.style.top = e.clientY + "px";
+                div.style.width = '6px';
+                div.style.height = '6px';
+                div.style.marginLeft = '-3px';
+                div.style.marginTop = '-3px';
+                div.style.borderRadius = '50%';
+                div.style.backgroundColor = 'black';
+                canvas.appendChild(div);
+            }
+        </script> -->
+    </body>
+
+</html>

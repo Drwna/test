@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+            content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>前端导航网站</title>
+        <link rel="stylesheet" href="style.css">
+        <style type="text/css">
+            .icon {
+                width: 1em;
+                height: 1em;
+                vertical-align: -0.15em;
+                fill: currentColor;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+
+    <body>
+        <header class="globalHeader">
+            <form class="searchForm" action="https://www.baidu.com/s" method="GET">
+                <input name="wd" type="text">
+                <button type="submit">search</button>
+            </form>
+        </header>
+        <main class="globalMain">
+            <ul class="siteList">
+                <li class="last">
+                    <div class="addButton">
+                        <div class="iconWrapper">
+                            <svg class="icon">
+                                <use xlink:href="#icon-add"></use>
+                            </svg>
+                        </div>
+                        <div class="text">add</div>
+                    </div>
+                </li>
+            </ul>
+        </main>
+        <footer style="width: 100px;height: 50px; border: 1px solid red;">
+            <a href="./project1/index2.html" target="_blank">项目测试</a>
+        </footer>
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="//at.alicdn.com/t/font_2807718_mi2nj3slbyi.js"></script>
+        <script src="main.js"></script>
+        </script>
+    </body>
+
+</html>
